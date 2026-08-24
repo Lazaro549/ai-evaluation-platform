@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./evaluation/reports:/app/evaluation/reports
+    env_file:
+      - .env
+    environment:
+      - PROVIDER=mock
+      - DATABASE_URL=sqlite:///./data/evaluations.db
+
+  dashboard:
+    build: .
+    command: streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./evaluation/reports:/app/evaluation/reports
+    env_file:
+      - .env
+    environment:
+      - PROVIDER=mock
+      - DATABASE_URL=sqlite:///./data/evaluations.db
+    depends_on:
+      - api
