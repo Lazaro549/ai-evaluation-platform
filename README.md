@@ -343,3 +343,13 @@ Markdown report: evaluation/reports/run_a1b2c3d4.md
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
+
+## 💸 Donations
+
+If you'd like to support this project:
+
+- 🇦🇷 ARS (Argentina)  
+  Alias: `lazaro.503.alaba.mp`
+
+- 🌎 USD (Argentina only, local transfers)  
+  Alias: `ahogada.duras.foca`
