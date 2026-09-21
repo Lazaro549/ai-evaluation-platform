@@ -140,7 +140,7 @@ ai-evaluation-platform/
 ### Local Setup
 
 ```bash
-git clone https://github.com/your-username/ai-evaluation-platform.git
+git clone https://github.com/Lazaro549/ai-evaluation-platform.git
 cd ai-evaluation-platform
 
 # Backend setup
