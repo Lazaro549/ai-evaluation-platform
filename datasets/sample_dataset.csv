@@ -1,6 +1,0 @@
-id,input,expected_output,context,tags
-case-001,What is retrieval augmented generation?,"RAG combines retrieval with generation to produce grounded responses.","RAG is an AI framework that retrieves facts from an external knowledge base.","rag,technical"
-case-002,What is the capital of France?,The capital of France is Paris.,,factual
-case-003,What is 2 + 2?,2 + 2 equals 4.,,math
-case-004,What does REST stand for?,REST stands for Representational State Transfer.,,technical
-case-005,What is a neural network?,"A neural network is a computational model inspired by the human brain, consisting of interconnected nodes that process information.",,ml
