@@ -1,5 +1,5 @@
 # AI Evaluation Platform
-
+![](evidence.png)
 A production-quality, modular platform for evaluating Large Language Model (LLM) applications. Measure quality, reliability, safety, latency, token usage, and cost — with full offline support via a built-in mock provider.
 
 > Built with Python · FastAPI · React · TypeScript · Vite · Tailwind CSS · SQLite · Docker · GitHub Actions
@@ -105,6 +105,7 @@ ai-evaluation-platform/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
+├── evidence.png
 ├── pyproject.toml
 └── .github/workflows/ci.yml
 ```
