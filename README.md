@@ -2,7 +2,7 @@
 
 A production-quality, modular platform for evaluating Large Language Model (LLM) applications. Measure quality, reliability, safety, latency, token usage, and cost — with full offline support via a built-in mock provider.
 
-> Built with Python · FastAPI · Streamlit · SQLite · Docker · GitHub Actions
+> Built with Python · FastAPI · React · TypeScript · Vite · Tailwind CSS · SQLite · Docker · GitHub Actions
 
 ---
 
@@ -25,7 +25,8 @@ Deploying an LLM application without systematic evaluation is risky. This platfo
 - **Batch evaluation pipeline** — dataset → LLM → metrics → report
 - **SQLite persistence** — all runs stored locally
 - **FastAPI REST API** — programmatic access to all evaluation data
-- **Streamlit dashboard** — visual exploration of results
+- **React + Vite Dashboard** — modern, responsive web interface with charts and tables
+- **Streamlit Dashboard** — original Python-based dashboard
 - **CLI** — `python -m app.cli evaluate --dataset ...`
 - **JSON / CSV / Markdown reports** — machine and human readable
 - **Run comparison** — compare two models side by side
@@ -53,7 +54,8 @@ graph TD
     L --> M[SQLite Database]
     L --> N[Reports JSON/CSV/MD]
     M --> O[FastAPI REST API]
-    M --> P[Streamlit Dashboard]
+    M --> P[React Dashboard]
+    M --> Q[Streamlit Dashboard]
 ```
 
 ### Directory Structure
@@ -75,8 +77,17 @@ ai-evaluation-platform/
 │   │   └── dataset_loader.py  # JSON/CSV dataset loading
 │   ├── cli.py                 # CLI entry point
 │   └── main.py                # Uvicorn entry point
+├── frontend/                  # React + TypeScript + Vite frontend
+│   ├── src/
+│   │   ├── api/              # API client layer
+│   │   ├── components/       # Reusable UI components
+│   │   ├── pages/            # Page components
+│   │   └── lib/              # Utilities
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── tsconfig.json
 ├── dashboard/
-│   └── streamlit_app.py       # Streamlit dashboard
+│   └── streamlit_app.py       # Streamlit dashboard (legacy)
 ├── datasets/
 │   ├── sample_dataset.json    # 22 benchmark cases
 │   └── sample_dataset.csv     # CSV format example
@@ -105,7 +116,8 @@ ai-evaluation-platform/
 | Component | Technology |
 |-----------|-----------|
 | Backend API | FastAPI + Uvicorn |
-| Dashboard | Streamlit |
+| Frontend (New) | React 18 + TypeScript + Vite + Tailwind CSS + Recharts |
+| Frontend (Legacy) | Streamlit |
 | Data validation | Pydantic v2 |
 | Data processing | pandas |
 | Persistence | SQLite (built-in) |
@@ -122,6 +134,7 @@ ai-evaluation-platform/
 ### Prerequisites
 
 - Python 3.11+
+- Node.js 18+ (for frontend)
 - pip
 
 ### Local Setup
@@ -130,6 +143,7 @@ ai-evaluation-platform/
 git clone https://github.com/your-username/ai-evaluation-platform.git
 cd ai-evaluation-platform
 
+# Backend setup
 python -m venv .venv
 # Windows
 .venv\Scripts\activate
@@ -140,6 +154,11 @@ pip install -r requirements.txt
 
 cp .env.example .env
 mkdir -p data evaluation/reports
+
+# Frontend setup
+cd frontend
+npm install
+cd ..
 ```
 
 ---
@@ -161,6 +180,7 @@ Copy `.env.example` to `.env` and configure:
 | `REPORTS_DIR` | `evaluation/reports` | Report output directory |
 | `COST_PER_1K_INPUT_TOKENS` | `0.00015` | Cost estimation (USD) |
 | `COST_PER_1K_OUTPUT_TOKENS` | `0.0006` | Cost estimation (USD) |
+| `VITE_API_URL` | `/api` | Frontend API base URL (for production) |
 
 **The platform works fully offline with `PROVIDER=mock` — no API keys needed.**
 
@@ -176,7 +196,16 @@ uvicorn app.main:app --reload --port 8000
 
 API docs available at: http://localhost:8000/docs
 
-### Start the Dashboard
+### Start the React Dashboard (New)
+
+```bash
+cd frontend
+npm run dev
+```
+
+Dashboard available at: http://localhost:3000 (proxies API to localhost:8000)
+
+### Start the Streamlit Dashboard (Legacy)
 
 ```bash
 streamlit run dashboard/streamlit_app.py
@@ -205,11 +234,11 @@ python -m app.cli evaluate --dataset datasets/sample_dataset.json --output csv
 ## Running with Docker
 
 ```bash
-# Build and start API + Dashboard
+# Build and start API + React Dashboard
 docker-compose up --build
 
 # API:       http://localhost:8000
-# Dashboard: http://localhost:8501
+# Dashboard: http://localhost:3000
 # API docs:  http://localhost:8000/docs
 ```
 
@@ -238,6 +267,31 @@ curl -X POST http://localhost:8000/evaluations/run \
     "metrics": ["exact_match", "keyword_overlap", "answer_relevance"]
   }'
 ```
+
+---
+
+## Frontend Dashboard Pages
+
+The React dashboard (`/frontend`) provides a modern, responsive interface with the following pages:
+
+| Page | Route | Description |
+|------|-------|-------------|
+| **Dashboard** | `/` | KPI cards, quality/latency/cost trends, pass/fail charts, quality vs cost/latency scatter plots, recent runs table |
+| **Evaluations** | `/evaluations` | Searchable, filterable, sortable table of all evaluation runs |
+| **Evaluation Detail** | `/evaluations/:id` | Run metadata, aggregate metrics, per-case results with drill-down |
+| **Experiments** | `/experiments` | Compare runs across models/configs, quality vs cost/latency trade-offs |
+| **Datasets** | `/datasets` | Available evaluation datasets with stats and evaluation status |
+| **Architecture** | `/architecture` | Visual system architecture with data flow and tech stack |
+
+### Key Features
+
+- **Dark/Light mode** with persistence
+- **Responsive design** for desktop and mobile
+- **Real-time charts** using Recharts (line, bar, scatter plots)
+- **Sortable, searchable, paginated tables**
+- **Loading, empty, and error states**
+- **No fake data** — displays "N/A" when metrics unavailable
+- **API integration** via centralized client with error handling
 
 ---
 
@@ -281,6 +335,12 @@ pytest --cov=app --cov=evaluation --cov-report=term-missing
 
 # Specific test file
 pytest tests/unit/test_metrics.py -v
+
+# Frontend type checking
+cd frontend && npm run typecheck
+
+# Frontend build
+cd frontend && npm run build
 ```
 
 All tests run without external API credentials using MockProvider.
