@@ -403,6 +403,28 @@ Markdown report: evaluation/reports/run_a1b2c3d4.md
 
 ---
 
+## 🔗 Cross-Project Engineering Portfolio
+
+This repository is the **measurement layer** in a three-repo engineering portfolio:
+
+| Layer | Repository | Role |
+|-------|------------|------|
+| **Experiment** | `AWS-AI-Generative` | Build RAG systems, generate benchmark data |
+| **Measure** | `ai-evaluation-platform` | Evaluate quality, latency, cost objectively |
+| **Decide** | `ai-engineering-lab` | Compare configurations, document conclusions |
+
+**Data flow:**
+```
+AWS-AI-Generative (RAG + benchmarks)
+        ↓ produces JSON reports
+AI Evaluation Platform (evaluation pipeline)
+        ↓ evaluates & compares
+AI Engineering Lab (evidence hub)
+        ↓ presents conclusions
+```
+
+The platform consumes RAG benchmark datasets from `AWS-AI-Generative` and produces standardized JSON/CSV/Markdown reports that `ai-engineering-lab` imports as measured evidence. The `/evaluations/compare/{run_a}/{run_b}` API endpoint enables programmatic comparison consumed by the evidence hub.
+
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
