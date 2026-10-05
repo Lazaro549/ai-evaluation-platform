@@ -252,6 +252,8 @@ docker-compose up --build
 
 ## API Documentation
 
+![](evaluation/evidence02.png)
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/health` | Health check |
