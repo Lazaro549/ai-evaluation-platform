@@ -249,9 +249,8 @@ docker-compose up --build
 # Dashboard: http://localhost:3000
 # API docs:  http://localhost:8000/docs
 ```
-
----
 Dockers docs available: https://docs.docker.com/compose/how-tos/file-watch/
+---
 ## API Documentation
 
 ![](evaluation/evidence02.png)
