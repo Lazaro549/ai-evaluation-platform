@@ -41,9 +41,7 @@ Deploying an LLM application without systematic evaluation is risky. This platfo
 ---
 
 ## Architecture
-<p align="center">
-  <img src="diagram.png" style="width: 100%; max-width: 700px; height: auto;" alt="Arquitectura del pipeline de evaluación">
-</p>
+<img alt="diagram.png" data-hpc="true" containertiming="hpc" src="https://github.com/Lazaro549/ai-evaluation-platform/blob/main/diagram.png?raw=true" style="max-width: 100%;">
 ```mermaid
 graph TD
     A[Dataset JSON/CSV] --> B[Evaluation Pipeline]
