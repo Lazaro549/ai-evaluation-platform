@@ -251,7 +251,7 @@ docker-compose up --build
 ```
 
 ---
-
+Dockers docs available: https://docs.docker.com/compose/how-tos/file-watch/
 ## API Documentation
 
 ![](evaluation/evidence02.png)
