@@ -1,3 +1,12 @@
+[project]
+name = "ai-evaluation-platform"
+version = "1.1.0"
+description = "Production-quality platform for evaluating LLM applications"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Lazaro Gomez Vitolo" }]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

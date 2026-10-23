@@ -1,5 +1,13 @@
 # AI Evaluation Platform
 
+[![CI](https://github.com/Lazaro549/ai-evaluation-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Lazaro549/ai-evaluation-platform/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111+-009688.svg)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev)
+[![Offline Ready](https://img.shields.io/badge/offline-ready-brightgreen.svg)](#running-locally)
+
+
 ![](docs/evidence.png)
 ![](frontend/evidence.png)
 ![](evaluation/evidence00.png)
@@ -37,6 +45,8 @@ Deploying an LLM application without systematic evaluation is risky. This platfo
 - **Run comparison** — compare two models side by side
 - **Docker support** — one command to run everything
 - **GitHub Actions CI** — tests run on every push, no API keys required
+- **Safety signals** — toxicity heuristic + contains_expected coverage metrics
+- **Badges & reproducibility** — CI, license, Python version badges + offline-first design
 
 ---
 
@@ -430,6 +440,20 @@ AI Engineering Lab (evidence hub)
 ```
 
 The platform consumes RAG benchmark datasets from `AWS-AI-Generative` and produces standardized JSON/CSV/Markdown reports that `ai-engineering-lab` imports as measured evidence. The `/evaluations/compare/{run_a}/{run_b}` API endpoint enables programmatic comparison consumed by the evidence hub.
+
+
+---
+
+## Changelog (improvements applied)
+
+### v1.1.0
+- Fixed `.env.example` (correct providers: mock / openai / bedrock)
+- Added proper `requirements.txt`, `pyproject.toml`, `.gitignore` and MIT `LICENSE`
+- GitHub Actions CI workflow (tests + offline smoke evaluation)
+- New deterministic metrics: `toxicity_heuristic`, `contains_expected`
+- README badges (CI, License, Python, FastAPI, React, Offline-ready)
+- Basic unit tests for metrics and schemas
+- Package `__init__.py` files for clean imports
 
 ## License
 
