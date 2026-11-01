@@ -263,8 +263,6 @@ Dockers docs: https://docs.docker.com/compose/how-tos/file-watch/
 ---
 ## API Documentation
 
-![](evaluation/evidence02.png)
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/health` | Health check |
